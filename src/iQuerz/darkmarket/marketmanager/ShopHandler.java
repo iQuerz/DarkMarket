@@ -3,7 +3,6 @@ import java.util.Arrays;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,9 +38,6 @@ public class ShopHandler implements InventoryHolder, Listener {
 		inv.addItem(book1);
 		inv.addItem(book2);
 		inv.addItem(spawner);
-        //inv.addItem(createGuiItem(book1.getType(), "Enchanted book", book1.getItemMeta().getEnchants().toString(), "§bBrought to you by our nearest drug dealer"));
-        ///inv.addItem(createGuiItem(book2.getType(), "Enchanted book", book2.getItemMeta().getEnchants().toString(), "§bBrought to you by our nearest drug dealer"));
-        //inv.addItem(createGuiItem(spawner.getType(), "Mob Spawner", spawner.getItemMeta().getEnchants().toString(), "§bBrought to you by our nearest drug dealer"));
         inv.addItem(createGuiItem(Material.WHITE_STAINED_GLASS_PANE,"   ",""));
         inv.addItem(createGuiItem(Material.WHITE_STAINED_GLASS_PANE,"    ",""));
         inv.addItem(createGuiItem(Material.WHITE_STAINED_GLASS_PANE,"     ",""));
@@ -69,11 +65,7 @@ public class ShopHandler implements InventoryHolder, Listener {
 
         e.setCancelled(true);
 
-        ItemStack clickedItem = e.getCurrentItem();
-
-        if (clickedItem == null || clickedItem.getType() == Material.AIR) return;
-        
-        
+        //ItemStack clickedItem = e.getCurrentItem();
     }
 
 	@Override
