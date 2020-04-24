@@ -1,0 +1,5 @@
+author: iQuerz
+version: 1.0
+api-version: 1.15
+main: iQuerz.darkmarket.main.DarkMarket
+name: DarkMarket
