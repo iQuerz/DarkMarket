@@ -1,42 +1,61 @@
 package iQuerz.darkmarket.marketmanager;
 
 import java.util.Random;
+import java.util.UUID;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import net.milkbowl.vault.economy.Economy;
 
 public class Market {
 	ItemStack book1;
 	ItemStack book2;
 	ItemStack spawner;
-	Player player;
 	ShopHandler shop;
 	
 	public Market(Player player) {
 		book1 = new ItemStack(Material.ENCHANTED_BOOK);
 		book2 = new ItemStack(Material.ENCHANTED_BOOK);
 		spawner = new ItemStack(Material.SPAWNER);
-		this.player = player;
 		
 		EnchantmentStorageMeta meta = (EnchantmentStorageMeta)book1.getItemMeta();
 		Enchantment e = getRandomEnch();
-		meta.addStoredEnchant(e,getRandomEnchLvl(e), true);
+		int lvl = getRandomEnchLvl(e);
+		int price1 = lvl%1000;
+		lvl/=1000;
+		meta.addStoredEnchant(e,lvl, true);
+		meta.setDisplayName("$"+Integer.toString(price1*1000));
 		book1.setItemMeta(meta);
+		
 		
 		meta = (EnchantmentStorageMeta)book2.getItemMeta();
 		e = getRandomEnch();
-		meta.addStoredEnchant(e,getRandomEnchLvl(e), true);
+		lvl = getRandomEnchLvl(e);
+		int price2 = lvl%1000;
+		lvl/=1000;
+		meta.addStoredEnchant(e,lvl, true);
+		meta.setDisplayName("$"+Integer.toString(price2*1000));
 		book2.setItemMeta(meta);
 		
-		spawner = new ItemStack(Material.DROWNED_SPAWN_EGG);
-		shop = new ShopHandler(book1,book2,spawner);
+		spawner = new ItemStack(Material.WITHER_SKELETON_SPAWN_EGG);
+		ItemMeta meta1 = spawner.getItemMeta();
+		meta1.setDisplayName("Coming soon...");
+		spawner.setItemMeta(meta1);
+		
+		shop = new ShopHandler(book1,book2,spawner,price1*1000,price2*1000,1000000000);
 	}
-	public void openShop() {
-		shop.openShop(player);
+	public void openShop(UUID id) {
+		shop.openShop(id);
 	}
+	public void onInventoryClick(InventoryClickEvent event, Economy economy) {
+    	shop.onInventoryClick(event, economy);
+    }
 	
 	private Enchantment getRandomEnch() {
 		Random r = new Random();
@@ -98,23 +117,23 @@ public class Market {
 		if(ench.equals(Enchantment.DIG_SPEED)||ench.equals(Enchantment.DAMAGE_ALL)||ench.equals(Enchantment.ARROW_DAMAGE)||ench.equals(Enchantment.DAMAGE_UNDEAD)||ench.equals(Enchantment.DAMAGE_ARTHROPODS)||ench.equals(Enchantment.IMPALING)) {
 			switch(r.nextInt(2)) {
 			case 0:{
-				return 6;
+				return 6*1000+r.nextInt(50)+250;
 			}
 			case 1:{
-				return 7;
+				return 7*1000+r.nextInt(100)+500;
 			}
 			default:{
-				return 6;
+				return 6000;
 			}
 			}
 		}
 		else if(ench.equals(Enchantment.DURABILITY)||ench.equals(Enchantment.OXYGEN)) {
 			switch(r.nextInt(2)) {
 			case 0:{
-				return 4;
+				return 4*1000+r.nextInt(50)+250;
 			}
 			case 1:{
-				return 5;
+				return 5*1000+r.nextInt(100)+500;
 			}
 			default:{
 				return 4;
@@ -124,10 +143,10 @@ public class Market {
 		else if(ench.equals(Enchantment.PROTECTION_ENVIRONMENTAL)||ench.equals(Enchantment.PROTECTION_FIRE)||ench.equals(Enchantment.PROTECTION_PROJECTILE)||ench.equals(Enchantment.PIERCING)||ench.equals(Enchantment.PROTECTION_EXPLOSIONS)) {
 			switch(r.nextInt(2)) {
 			case 0:{
-				return 5;
+				return 5*1000+r.nextInt(50)+250;
 			}
 			case 1:{
-				return 6;
+				return 6*1000+r.nextInt(100)+500;
 			}
 			default:{
 				return 5;
@@ -135,10 +154,10 @@ public class Market {
 			}
 		}
 		else if(ench.equals(Enchantment.PROTECTION_FALL)) {
-			return 5;
+			return 5*1000+r.nextInt(50)+250;
 		}
 		else if(ench.equals(Enchantment.QUICK_CHARGE)) {
-			return 4;
+			return 4*1000+r.nextInt(50)+250;
 		}
 		else return 1000;
 	}
