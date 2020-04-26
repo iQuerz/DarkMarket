@@ -30,7 +30,7 @@ public class Market {
 		int price1 = lvl%1000;
 		lvl/=1000;
 		meta.addStoredEnchant(e,lvl, true);
-		meta.setDisplayName("$"+Integer.toString(price1*1000));
+		meta.setDisplayName("$"+Integer.toString(price1)+"k");
 		book1.setItemMeta(meta);
 		
 		
@@ -40,7 +40,7 @@ public class Market {
 		int price2 = lvl%1000;
 		lvl/=1000;
 		meta.addStoredEnchant(e,lvl, true);
-		meta.setDisplayName("$"+Integer.toString(price2*1000));
+		meta.setDisplayName("$"+Integer.toString(price2)+"k");
 		book2.setItemMeta(meta);
 		
 		spawner = new ItemStack(Material.WITHER_SKELETON_SPAWN_EGG);
