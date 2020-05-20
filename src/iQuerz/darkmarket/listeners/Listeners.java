@@ -21,7 +21,7 @@ public class Listeners implements Listener {
 	@EventHandler
     public void onPlayerJoin(PlayerJoinEvent event)
     {
-        event.setJoinMessage("Welcome, " + event.getPlayer().getName() + "! Did you know Obama's last name is Care?");
+        event.setJoinMessage("§eWelcome, " + event.getPlayer().getName() + "! Did you know Obama's last name is Care?");
         plugin.getManager().addMarket(event.getPlayer());
     }
 	

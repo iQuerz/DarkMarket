@@ -59,7 +59,7 @@ public class Market {
 	
 	private Enchantment getRandomEnch() {
 		Random r = new Random();
-		int ench = r.nextInt(14);
+		int ench = r.nextInt(15);
 		
 		switch (ench){
 		case 0:{
@@ -107,6 +107,9 @@ public class Market {
 		case 14:{
 			return Enchantment.PROTECTION_PROJECTILE;
 		}
+		case 15:{
+			return Enchantment.LOOT_BONUS_MOBS;
+		}
 		default:{
 			return Enchantment.THORNS;
 		}
@@ -127,7 +130,7 @@ public class Market {
 			}
 			}
 		}
-		else if(ench.equals(Enchantment.DURABILITY)||ench.equals(Enchantment.OXYGEN)) {
+		else if(ench.equals(Enchantment.DURABILITY)||ench.equals(Enchantment.OXYGEN)||ench.equals(Enchantment.LOOT_BONUS_MOBS)) {
 			switch(r.nextInt(2)) {
 			case 0:{
 				return 4*1000+r.nextInt(50)+250;
