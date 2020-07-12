@@ -1,5 +1,7 @@
 package iQuerz.darkmarket.marketmanager;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -43,12 +45,18 @@ public class Market {
 		meta.setDisplayName("$"+Integer.toString(price2)+"k");
 		book2.setItemMeta(meta);
 		
-		spawner = new ItemStack(Material.WITHER_SKELETON_SPAWN_EGG);
+		SpawnEgg spawnegg = generateSpawner();
+		spawner = spawnegg.item1;
 		ItemMeta meta1 = spawner.getItemMeta();
-		meta1.setDisplayName("Coming soon...");
+		meta1.setDisplayName("§e$"+spawnegg.itemPrice/1000+"k");
+		List<String> lore = new ArrayList<String>();
+		lore.add("§7Spawn egg, type:");
+		lore.add("§e"+spawnegg.item1.getType().toString().subSequence(0, spawnegg.item1.getType().toString().length()-10).toString().replace("_", " "));
+		lore.add("§7Click with an egg on a spawner to transform it.");
+		meta1.setLore(lore);
 		spawner.setItemMeta(meta1);
 		
-		shop = new ShopHandler(book1,book2,spawner,price1*1000,price2*1000,1000000000);
+		shop = new ShopHandler(book1,book2,spawner,price1*1000,price2*1000,spawnegg.itemPrice);
 	}
 	public void openShop(UUID id) {
 		shop.openShop(id);
@@ -164,4 +172,88 @@ public class Market {
 		}
 		else return 1000;
 	}
+
+	private SpawnEgg generateSpawner() {
+		SpawnEgg spawner = new SpawnEgg();
+		Random r = new Random();
+		int spwnr = r.nextInt(13);
+		switch (spwnr){
+			case 0:{
+				spawner.item1 = new ItemStack(Material.WITHER_SKELETON_SPAWN_EGG);
+				spawner.itemPrice = 1000000;
+				break;
+				}
+			case 1:{
+				spawner.item1 = new ItemStack(Material.GUARDIAN_SPAWN_EGG);
+				spawner.itemPrice = 1000000;
+				break;
+				}
+			case 2:{
+				spawner.item1 = new ItemStack(Material.VINDICATOR_SPAWN_EGG);
+				spawner.itemPrice = 1000000;
+				break;
+			}
+			case 3:{
+				spawner.item1 =  new ItemStack(Material.GHAST_SPAWN_EGG);
+				spawner.itemPrice = 1000000;
+				break;
+			}
+			case 4:{
+				spawner.item1 = new ItemStack(Material.SHEEP_SPAWN_EGG);
+				spawner.itemPrice = 800000;
+				break;
+			}
+			case 5:{
+				spawner.item1 = new ItemStack(Material.COW_SPAWN_EGG);
+				spawner.itemPrice = 800000;
+				break;
+			}
+			case 6:{
+				spawner.item1 = new ItemStack(Material.MOOSHROOM_SPAWN_EGG);
+				spawner.itemPrice = 800000;
+				break;
+			}
+			case 7:{
+				spawner.item1 = new ItemStack(Material.SQUID_SPAWN_EGG);
+				spawner.itemPrice = 800000;
+				break;
+			}
+			case 8:{
+				spawner.item1 = new ItemStack(Material.DROWNED_SPAWN_EGG);
+				spawner.itemPrice = 800000;
+				break;
+			}
+			case 9:{
+				spawner.item1 = new ItemStack(Material.SLIME_SPAWN_EGG);
+				spawner.itemPrice = 800000;
+				break;
+			}
+			case 10:{
+				spawner.item1 = new ItemStack(Material.WITCH_SPAWN_EGG);
+				spawner.itemPrice = 800000;
+				break;
+			}
+			case 11:{
+				spawner.item1 = new ItemStack(Material.ZOMBIE_PIGMAN_SPAWN_EGG);
+				spawner.itemPrice = 650000;
+				break;
+			}
+			case 12:{
+				spawner.item1 = new ItemStack(Material.MAGMA_CUBE_SPAWN_EGG);
+				spawner.itemPrice = 650000;
+				break;
+			}
+			default:{
+				spawner.item1 = new ItemStack(Material.CREEPER_SPAWN_EGG);
+				spawner.itemPrice = 1000000;
+				break;
+			}
+		}
+		return spawner;
+	}
+	
+	class SpawnEgg{
+		ItemStack item1;
+		int itemPrice;
+	};
 }

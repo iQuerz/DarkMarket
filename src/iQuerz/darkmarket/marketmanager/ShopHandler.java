@@ -95,15 +95,21 @@ public class ShopHandler{
     		final EconomyResponse response = economy.withdrawPlayer(p, cost);
     		
     		if (response.transactionSuccess()) {
-	    		p.sendMessage("$"+cost + " taken from your account.");
-	    		ItemStack book = new ItemStack(Material.ENCHANTED_BOOK);
-	    		String name = book.getItemMeta().getDisplayName();
-	    		meta.setDisplayName(name);
-	    		book.setItemMeta(meta);
-	    		p.getInventory().addItem(book);
+	    		p.sendMessage("§6$"+cost + " taken from your account.");
+	    		if(event.getRawSlot()<5) {
+		    		ItemStack book = new ItemStack(Material.ENCHANTED_BOOK);
+		    		String name = book.getItemMeta().getDisplayName();
+		    		meta.setDisplayName(name);
+		    		book.setItemMeta(meta);
+		    		p.getInventory().addItem(book);
+	    		}
+	    		else {
+	    			ItemStack newSpawner = new ItemStack(this.spawner.getType());
+	    			p.getInventory().addItem(newSpawner);
+	    		}
     		}
     		else {
-	    		p.sendMessage("You could not afford to do this");
+	    		p.sendMessage("§6You could not afford to do this");
 	    			event.setCancelled(true);
     		}
     	}
